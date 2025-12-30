@@ -1,23 +1,683 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <title>Home</title>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
-    <!--
-      Need a visual blank slate?
-      Remove all code in `styles.css`!
-    -->
-    <link rel="stylesheet" href="styles.css" />
-    <script type="module" src="script.js"></script>
-  </head>
-  <body>
-    <nav>
-      <a href="/" aria-current="page">Home</a>
-      <a href="/page2.html">Other page</a>
-    </nav>
+
+    <!-- Schema.org Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Service",
+      "serviceType": "김천 이사 서비스",
+      "provider": {
+        "@type": "Organization",
+        "name": "김천이사 전문 업체",
+        "url": "https://yourdomain.com",
+        "logo": "https://yourdomain.com/logo.png"
+      },
+      "areaServed": {
+        "@type": "AdministrativeArea",
+        "name": "김천시"
+      },
+      "description": "김천시 전역을 대상으로 포장이사, 반포장이사, 일반이사 서비스를 제공합니다. 김천혁신도시, 아포읍, 지좌동 등 지역 특성에 맞는 맞춤형 이사를 경험하세요.",
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "김천 이사 서비스 가격",
+        "itemListElement": [
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Product",
+              "name": "김천 포장이사"
+            },
+            "priceSpecification": {
+              "@type": "PriceSpecification",
+              "price": "500000",
+              "priceCurrency": "KRW",
+              "description": "김천 포장이사 서비스 (포장, 운반, 정리 정돈 포함)"
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Product",
+              "name": "김천 반포장이사"
+            },
+            "priceSpecification": {
+              "@type": "PriceSpecification",
+              "price": "400000",
+              "priceCurrency": "KRW",
+              "description": "김천 반포장이사 서비스 (포장 업체, 정리 고객)"
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Product",
+              "@id": "https://yourdomain.com/gimcheon_general_moving_service",
+              "name": "김천 일반이사"
+            },
+            "priceSpecification": {
+              "@type": "PriceSpecification",
+              "price": "300000",
+              "priceCurrency": "KRW",
+              "description": "김천 일반이사 서비스 (운반만 업체)"
+            }
+          }
+        ]
+      },
+      "url": "https://yourdomain.com"
+    }
+    </script>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap');
+
+        /* New soft color palette */
+        :root {
+            --primary-color: #00A3C9; /* Calm Blue */
+            --secondary-color: #F0535B; /* Accent Red */
+            --background-light: #F8F9FA; /* Light Grey Background */
+            --text-dark: #343A40; /* Dark Grey Text */
+            --text-light: #6C757D; /* Medium Grey Text */
+            --section-bg: #FFFFFF; /* White Section Background */
+            --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            --border-color: #E9ECEF;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.7;
+            background-color: var(--background-light);
+            color: var(--text-dark);
+            font-weight: 300;
+        }
+
+        header {
+            background-color: var(--primary-color);
+            color: var(--background-light);
+            padding: 3rem 1.5rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            border-bottom-left-radius: 50% 20px;
+            border-bottom-right-radius: 50% 20px;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(0, 163, 201, 0.9), rgba(0, 107, 133, 0.8));
+            z-index: -1;
+        }
+
+        h1 {
+            font-size: 2.8rem;
+            font-weight: 700;
+            margin: 0;
+            letter-spacing: -1px;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+        }
+
+        h2 {
+            color: var(--primary-color);
+            font-size: 2rem;
+            margin-top: 2rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 3px solid var(--primary-color);
+            display: inline-block;
+            text-align: left;
+            font-weight: 700;
+        }
+
+        h3 {
+            color: var(--text-dark);
+            font-size: 1.5rem;
+            margin-top: 1.5rem;
+            margin-bottom: 1rem;
+            font-weight: 500;
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        nav a:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        main {
+            max-width: 960px;
+            margin: 2.5rem auto;
+            padding: 0 1rem;
+        }
+
+        section {
+            background-color: var(--section-bg);
+            padding: 2.5rem;
+            border-radius: 12px;
+            box-shadow: var(--card-shadow);
+            margin-bottom: 3rem;
+        }
+
+        section p, section ul, section dl {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--text-light);
+        }
+
+        section p strong {
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            margin-top: 1.5rem;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: var(--card-shadow);
+        }
+
+        th, td {
+            padding: 1.2rem;
+            text-align: left;
+            font-size: 1rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        th {
+            background-color: var(--primary-color);
+            color: white;
+            font-weight: 700;
+        }
+
+        tr:nth-child(even) {
+            background-color: #fcfcfc;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        .price-highlight {
+            font-weight: 700;
+            color: var(--secondary-color);
+            font-size: 1.2rem;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background-color: var(--secondary-color);
+            color: white;
+            font-weight: 700;
+            padding: 1.2rem 2.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            margin: 2rem 0;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(240, 83, 91, 0.3);
+        }
+
+        .cta-button:hover {
+            background-color: #e64a50;
+            transform: translateY(-3px);
+        }
+
+        .keyword-tags {
+            margin: 1.5rem 0 2rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .keyword-tags a {
+            background-color: #E6F3F7;
+            color: var(--primary-color);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.95rem;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+
+        .keyword-tags a:hover {
+            background-color: #BBDEE8;
+        }
+
+        .external-links ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .external-links li {
+            margin-bottom: 10px;
+        }
+
+        .external-links a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .external-links a:hover {
+            text-decoration: underline;
+        }
+
+        .check-list li {
+            position: relative;
+            padding-left: 25px;
+            margin-bottom: 10px;
+            list-style: none;
+        }
+
+        .check-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            top: 0;
+            color: #28a745;
+            font-weight: 700;
+        }
+
+        /* FAQ Accordion Styling */
+        dl dt {
+            cursor: pointer;
+            padding: 15px;
+            background-color: var(--background-light);
+            border-radius: 8px;
+            margin-bottom: 10px;
+            transition: background-color 0.3s ease;
+            font-weight: 500;
+            color: var(--text-dark);
+            position: relative;
+            padding-right: 40px;
+        }
+
+        dl dt::after {
+            content: '+';
+            position: absolute;
+            right: 15px;
+            font-size: 1.5rem;
+            line-height: 1;
+            top: 50%;
+            transform: translateY(-50%);
+            transition: transform 0.3s ease;
+        }
+
+        dl dt.active::after {
+            content: '-';
+            transform: translateY(-50%);
+        }
+
+        dl dt:hover {
+            background-color: var(--border-color);
+        }
+
+        dl dd {
+            background-color: #fcfcfc;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            margin: -10px 0 20px 0;
+            display: none;
+            animation: fadeIn 0.4s ease-in-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Engagement Form Styling */
+        .quote-form input[type="text"],
+        .quote-form input[type="tel"],
+        .quote-form select,
+        .quote-form textarea {
+            width: calc(100% - 24px); /* Full width minus padding */
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            font-size: 1rem;
+            box-sizing: border-box;
+        }
+
+        .quote-form input[type="checkbox"] {
+            margin-right: 10px;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 15px;
+        }
+
+        .form-row > div {
+            flex: 1;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+            color: var(--text-dark);
+        }
+
+        /* Visual Data Representation (Simulated Graph) */
+        .graph-container {
+            margin-top: 2rem;
+            padding: 20px;
+            background-color: var(--background-light);
+            border-radius: 8px;
+        }
+        .graph-bar {
+            background-color: var(--primary-color);
+            margin-bottom: 5px;
+            height: 25px;
+            border-radius: 4px;
+            text-align: right;
+            color: white;
+            padding-right: 10px;
+            line-height: 25px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: width 0.5s ease;
+        }
+        .graph-label {
+            color: var(--text-light);
+            font-size: 0.9rem;
+            margin-bottom: 5px;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 2.5rem;
+            font-size: 0.9rem;
+            color: #888;
+            background-color: var(--section-bg);
+            border-top: 1px solid var(--border-color);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>김천이사 전문 파트너: 믿고 맡기는 프리미엄 서비스</h1>
+        <p>김천시 전역, 고객님의 소중한 이사를 책임집니다. 합리적인 가격과 차별화된 서비스로 최고의 만족을 약속드립니다.</p>
+        <nav aria-label="메인 메뉴">
+            <ul>
+                <li><a href="#service">서비스 종류</a></li>
+                <li><a href="#price">이사 비용 안내</a></li>
+                <li><a href="#localinfo">김천 지역 전문가</a></li>
+                <li><a href="#faq">자주 묻는 질문</a></li>
+                <li><a href="#contact">견적 문의</a></li>
+            </ul>
+        </nav>
+    </header>
+
     <main>
-      <h1>Home page</h1>
+        <section id="service">
+            <h2>김천이사, 고객 맞춤형 서비스의 시작</h2>
+            <p><strong>김천이사</strong>는 단순한 짐 운반을 넘어 새로운 시작을 돕는 종합 서비스입니다. 저희는 김천 지역의 특성을 완벽히 이해하고, 고객님의 짐 양과 이사 환경에 맞춰 최적의 솔루션을 제공합니다. 김천혁신도시의 아파트 이사부터 아포읍, 지좌동의 주택 이사까지, 모든 상황에 대비된 전문 인력이 배치됩니다.</p>
+            <p>특히 <strong>김천포장이사</strong>는 이사의 모든 과정을 저희가 전담하여 고객님의 시간과 노력을 절약해 드립니다. 바쁜 일상 속에서도 편안하게 이사할 수 있도록 포장, 운반, 정리, 청소까지 한 번에 해결해 드리는 프리미엄 서비스입니다.</p>
+
+            <h3>김천 지역 이사 맞춤형 서비스 비교</h3>
+            <div class="keyword-tags" aria-label="관련 이사 키워드">
+                <a href="#price">#김천이사비용</a>
+                <a href="#localinfo">#김천혁신도시이사</a>
+                <a href="#service">#김천포장이사</a>
+                <a href="#service">#김천반포장이사</a>
+                <a href="#service">#김천원룸이사</a>
+                <a href="#contact">#김천이사업체견적</a>
+            </div>
+
+            <table aria-label="김천 이사 서비스 종류별 비교">
+                <thead>
+                    <tr>
+                        <th>서비스 종류</th>
+                        <th>짐 포장</th>
+                        <th>운반</th>
+                        <th>짐 정리 및 배치</th>
+                        <th>청소 서비스</th>
+                        <th>추천 대상</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>김천 포장이사</strong></td>
+                        <td>전문가 전담</td>
+                        <td>전문가 전담</td>
+                        <td>전문가 전담</td>
+                        <td>가구 배치 및 마무리 청소</td>
+                        <td>시간이 부족하거나 꼼꼼한 정리 정돈을 원하는 고객</td>
+                    </tr>
+                    <tr>
+                        <td><strong>김천 반포장이사</strong></td>
+                        <td>전문가(주요짐) + 고객(잔짐)</td>
+                        <td>전문가 전담</td>
+                        <td>고객 직접 정리</td>
+                        <td>미포함 (별도 문의)</td>
+                        <td>합리적인 비용을 원하며 잔짐 정리가 가능한 고객</td>
+                    </tr>
+                    <tr>
+                        <td><strong>김천 일반이사</strong></td>
+                        <td>고객 직접 포장</td>
+                        <td>전문가 전담</td>
+                        <td>고객 직접 정리</td>
+                        <td>미포함</td>
+                        <td>짐이 적고 운반만 필요한 <strong>김천용달이사</strong> 고객</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section id="price">
+            <h2>김천이사 비용 투명하게 분석하기</h2>
+            <p><strong>김천이사비용</strong>은 '이사 형태', '짐의 양', '운반 거리', '이사 날짜', '작업 환경' 등 여러 요소에 의해 결정됩니다. 특히 김천 지역은 혁신도시 아파트 단지처럼 사다리차 이용이 필수적이거나, 오래된 주택가처럼 진입이 어려운 곳이 공존하기 때문에, 정확한 견적을 위해서는 전문가의 현장 방문 견적이 중요합니다.</p>
+
+            <h3>1. 주요 비용 결정 요소 분석</h3>
+            <p><strong>김천포장이사</strong> 비용을 결정하는 가장 큰 요소는 짐의 양입니다. 짐의 양에 따라 필요한 인력과 차량 크기(1톤, 2.5톤, 5톤 등)가 달라지기 때문입니다. 특히 김천에서 <strong>2.5톤이사</strong>는 원룸 및 1.5룸 가구에 가장 많이 이용되지만, 짐이 많은 2인 가구의 경우 5톤 트럭이 필요할 수도 있습니다.</p>
+            <ul>
+                <li><strong>짐의 양과 차량 크기:</strong> 1톤 (원룸), 2.5톤 (원룸/1.5룸), 5톤 (소형 아파트), 7.5톤 이상 (대형 아파트).</li>
+                <li><strong>이사 형태:</strong> 포장이사가 반포장이사나 일반이사보다 인건비가 추가되어 비용이 높습니다.</li>
+                <li><strong>이사 날짜:</strong> '손 없는 날'이나 주말은 수요가 높아져 비용이 20~30% 할증될 수 있습니다. 2026년 이사 계획 시에도 이 점을 고려해야 합니다.</li>
+                <li><strong>작업 환경:</strong> 사다리차 사용료, 엘리베이터 사용료, 짐을 운반해야 하는 거리(손 운반) 등이 추가 비용을 발생시킵니다.</li>
+            </ul>
+
+            <h3>2. 2026년 김천 이사 비용 동향 및 계획</h3>
+            <p>2026년에도 이사 비용은 인건비와 유류비 상승 압력으로 인해 전년 대비 소폭 상승할 것으로 예상됩니다. 특히 김천 지역은 혁신도시의 신규 입주 물량과 기존 주택 이주 수요가 겹치면서 봄철과 가을철 성수기 집중 현상이 심화될 수 있습니다. <strong>2026년 이사 계획</strong>을 세우신다면, 비수기 평일을 이용하거나 최소 1~2개월 전에 미리 예약하는 것이 비용 절감의 핵심입니다.</p>
+            <div class="graph-container">
+                <h3>월별 이사 수요 변동 (가상 데이터 기반)</h3>
+                <div class="graph-label">1월 (비수기):</div>
+                <div class="graph-bar" style="width: 50%;">50%</div>
+                <div class="graph-label">3월 (성수기):</div>
+                <div class="graph-bar" style="width: 95%; background-color: var(--secondary-color);">95%</div>
+                <div class="graph-label">7월 (비수기):</div>
+                <div class="graph-bar" style="width: 45%;">45%</div>
+                <div class="graph-label">10월 (성수기):</div>
+                <div class="graph-bar" style="width: 90%; background-color: var(--secondary-color);">90%</div>
+            </div>
+        </section>
+
+        <section id="localinfo">
+            <h2>김천 지역 전문가가 말하는 이사 팁</h2>
+            <p><strong>김천이사업체</strong>를 선택할 때 김천 지역에 대한 이해도는 매우 중요합니다. 김천혁신도시는 최근 10년 새 급격히 개발된 아파트 단지가 많아 이사 규정이 까다롭습니다. 반면, 지좌동이나 평화동 등 구도심 지역은 오래된 주택이 많아 좁은 골목길과 사다리차 설치 공간 확보가 관건입니다. 저희는 김천 전역의 지형적 특징과 건물별 규정을 숙지하고 있어 최적화된 이사 솔루션을 제공합니다.</p>
+
+            <h3>김천 주요 지역별 이사 유의사항</h3>
+            <ul>
+                <li><strong>김천혁신도시:</strong> 아파트 단지별로 엘리베이터 이사 예약 시간이 정해져 있습니다. 관리사무소에 반드시 사전 통보해야 하며, 신규 입주 시즌에는 엘리베이터 사용 경쟁이 치열할 수 있습니다.</li>
+                <li><strong>아포읍/지좌동:</strong> 좁은 주택가 골목이나 5층 이하 주택이 많아 사다리차 사용 공간 확보가 중요합니다. 주차 공간이 협소할 경우 짐 운반 거리가 늘어날 수 있습니다.</li>
+                <li><strong>평화동/부곡동:</strong> 구도심 지역으로 짐 운반 동선을 미리 파악하는 것이 중요합니다. 이사 전 주택 내부 구조를 확인해 비용을 절감할 수 있는 방법을 논의해야 합니다.</li>
+            </ul>
+        </section>
+
+        <section id="faq">
+            <h2>김천이사 자주 묻는 질문 (FAQ)</h2>
+            <p>김천 이사를 앞둔 고객님들이 <strong>네이버 지식iN</strong>에서 자주 검색하는 질문들을 모아 답변해 드립니다.</p>
+            <dl>
+                <dt tabindex="0" aria-expanded="false">Q1. 김천 지역 이사업체 선택 시 가장 중요한 기준은 무엇인가요?</dt>
+                <dd>A. <strong>사업자 등록 여부와 보험 가입 여부</strong>입니다. 특히 화물자동차 운수사업법에 따른 적재물 배상 책임 보험에 가입된 업체인지 확인해야 이사 중 짐 파손이나 분실 시 제대로 된 보상을 받을 수 있습니다. 저희는 정식 등록된 김천 지역 이사업체로 안전을 최우선으로 합니다.</dd>
+
+                <dt tabindex="0" aria-expanded="false">Q2. <strong>김천용달이사</strong>는 2.5톤 이사와 어떻게 다른가요?</dt>
+                <dd>A. <strong>김천용달이사</strong>는 일반적으로 짐이 적은 원룸이나 소량 짐을 운반할 때 '차량+기사' 서비스만 제공하는 경우가 많습니다. 2.5톤 이사는 차량 크기를 의미하며, 포장/운반/정리 서비스가 포함된 포장이사 형태로도 진행될 수 있습니다. 짐의 양에 따라 1톤 용달을 부를지 2.5톤 이사를 부를지 결정하게 됩니다.</dd>
+
+                <dt tabindex="0" aria-expanded="false">Q3. 이사 견적 문의 시 정확한 비용을 위해 어떤 정보를 제공해야 하나요?</dt>
+                <dd>A. 이사 날짜, 출발지와 도착지 주소(아파트명/주택 종류), 짐의 양(방 개수 기준 또는 주요 가구 목록), 사다리차 사용 가능 여부(층수), 그리고 추가적으로 필요한 서비스(에어컨 이전 설치, 입주 청소 등)를 알려주시면 정확한 <strong>김천이사견적</strong>을 산출할 수 있습니다.</dd>
+
+                <dt tabindex="0" aria-expanded="false">Q4. 이사 전에 미리 준비해야 할 체크리스트가 있나요?</dt>
+                <dd>A. 네, 성공적인 이사를 위해 다음과 같은 준비가 필요합니다.
+                    <ul class="check-list">
+                        <li><strong>이사 날짜 확정 및 예약:</strong> 최소 3~4주 전 예약으로 원하는 날짜 확보 및 비용 절감.</li>
+                        <li><strong>불필요한 짐 정리:</strong> 이사 비용은 짐의 양에 비례하므로 불필요한 물건은 미리 처분.</li>
+                        <li><strong>관리사무소 통보:</strong> 아파트의 경우 엘리베이터 사용 예약 및 이사 규정 확인.</li>
+                        <li><strong>공과금 정산:</strong> 이사 당일 또는 전날 전기, 수도, 가스 요금 정산.</li>
+                        <li><strong>주소 변경 신고:</strong> 우체국 주소 이전 서비스 신청 및 금융, 통신사 주소 변경.</li>
+                    </ul>
+                </dd>
+            </dl>
+        </section>
+
+        <section id="contact">
+            <h2>김천이사 무료 견적 요청 및 예약</h2>
+            <p><strong>김천이사비용</strong>은 현장 조건에 따라 크게 달라지므로, 정확한 견적을 위해 전문 상담원과 무료로 상담해 보세요. 2.5톤 원룸이사부터 5톤 아파트 포장이사까지, 고객님의 조건에 맞는 합리적인 견적을 제시해 드립니다.</p>
+
+            <!-- Detailed Quote Form for Engagement -->
+            <form class="quote-form" aria-label="이사 견적 문의 양식">
+                <h3>이사 정보 입력</h3>
+                <div class="form-row">
+                    <div>
+                        <label for="name" class="form-label">성함:</label>
+                        <input type="text" id="name" name="name" placeholder="이름" required>
+                    </div>
+                    <div>
+                        <label for="phone" class="form-label">연락처:</label>
+                        <input type="tel" id="phone" name="phone" placeholder="010-1234-5678" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div>
+                        <label for="move-type" class="form-label">이사 형태:</label>
+                        <select id="move-type" name="move-type" required>
+                            <option value="">-- 선택 --</option>
+                            <option value="포장이사">포장이사</option>
+                            <option value="반포장이사">반포장이사</option>
+                            <option value="일반이사">일반이사</option>
+                            <option value="보관이사">보관이사</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="move-date" class="form-label">희망 이사 날짜:</label>
+                        <input type="date" id="move-date" name="move-date" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div>
+                        <label for="start-address" class="form-label">출발지 주소 (김천시):</label>
+                        <input type="text" id="start-address" name="start-address" placeholder="예: 김천혁신도시 율곡동 아파트" required>
+                    </div>
+                    <div>
+                        <label for="end-address" class="form-label">도착지 주소 (김천시/타지역):</label>
+                        <input type="text" id="end-address" name="end-address" placeholder="예: 김천시 지좌동 주택 또는 대구시" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div>
+                        <label for="item-quantity" class="form-label">짐의 양 (방 개수 기준):</label>
+                        <select id="item-quantity" name="item-quantity" required>
+                            <option value="">-- 선택 --</option>
+                            <option value="원룸">원룸 (1인 가구)</option>
+                            <option value="1.5룸">1.5룸 (짐 많은 1인/2인 가구)</option>
+                            <option value="2룸">2룸 (투룸/소형 아파트)</option>
+                            <option value="3룸">3룸 (아파트/주택)</option>
+                            <option value="4룸이상">4룸 이상</option>
+                        </select>
+                    </div>
+                </div>
+                <label for="details" class="form-label">추가 요청 사항 (사다리차 필요 여부, 에어컨 설치 등):</label>
+                <textarea id="details" name="details" rows="4" placeholder="자세한 내용을 남겨주시면 정확한 견적에 도움이 됩니다."></textarea>
+                <div class="form-agree">
+                    <input type="checkbox" id="privacy-agree" name="privacy-agree" required>
+                    <label for="privacy-agree">개인정보 수집 및 이용 동의 (필수)</label>
+                </div>
+                <button type="submit" class="cta-button">무료 견적 요청하기</button>
+            </form>
+            <p style="text-align: center;">또는 전화로 간편하게 상담받으세요: <a href="tel:01012345678" style="font-weight: 700; color: var(--secondary-color);">010-1234-5678</a></p>
+        </section>
+
+        <section class="external-links">
+            <h2>신뢰할 수 있는 이사 관련 정보 및 외부 링크</h2>
+            <p><strong>김천이사</strong>를 준비하는 고객님들께 도움이 될 만한 공신력 있는 외부 자료를 정리했습니다. 이사 관련 법규, 소비자 보호 기준 등을 확인하여 안전한 이사를 준비하세요.</p>
+            <ul>
+                <li><a href="https://www.ftc.go.kr/www/cpw/service/selectBusi.do?key=670&busiType=08" target="_blank">공정거래위원회 이사화물 표준약관 (소비자 피해 예방)</a></li>
+                <li><a href="https://www.molit.go.kr/intro.jsp" target="_blank">국토교통부 (이사 관련 법규 및 정책)</a></li>
+                <li><a href="https://www.korea.kr/policy/policyView.do?keyword=이사&p_id=148866571" target="_blank">대한민국 정책브리핑 (이사 시 유의사항)</a></li>
+                <li><a href="https://www.gimcheon.go.kr/" target="_blank">김천시청 공식 웹사이트 (지역 정보 확인)</a></li>
+                <li><a href="https://namu.wiki/w/%ED%8F%AC%EC%9E%A5%EC%9D%B4%EC%82%AC" target="_blank">포장이사에 대한 나무위키 정보</a></li>
+            </ul>
+        </section>
     </main>
-  </body>
-</html>
+
+    <footer>
+        <p>Copyright &copy; 2025 김천이사 전문 업체. All Rights Reserved.</p>
+        <p>대표: 홍길동 | 사업자등록번호: 123-45-67890 | 주소: 김천시 율곡동 1234</p>
+    </footer>
+
+    <script>
+        // FAQ Accordion functionality
+        document.querySelectorAll('dl dt').forEach((dt) => {
+            dt.addEventListener('click', () => {
+                const isActive = dt.classList.contains('active');
+                const dd = dt.nextElementSibling;
+
+                // Close all other accordions
+                document.querySelectorAll('dl dt').forEach(item => {
+                    if (item !== dt) {
+                        item.classList.remove('active');
+                        item.setAttribute('aria-expanded', 'false');
+                        item.nextElementSibling.style.display = 'none';
+                    }
+                });
+
+                // Toggle current accordion
+                if (!isActive) {
+                    dt.classList.add('active');
+                    dt.setAttribute('aria-expanded', 'true');
+                    dd.style.display = 'block';
+                } else {
+                    dt.classList.remove('active');
+                    dt.setAttribute('aria-expanded', 'false');
+                    dd.style.display = 'none';
+                }
+            });
+
+            dt.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    dt.click();
+                }
+            });
+        });
+    </script>
+
+
+  
